@@ -2,6 +2,7 @@ from typing import List
 import MOvisualizer.global_grid
 import MOvisualizer.plot_file
 from MOvisualizer import GTO_Basis_Set
+import logging
 
 
 class Plot_File_Generator:
@@ -10,4 +11,5 @@ class Plot_File_Generator:
         self.plot_file = MOvisualizer.plot_file.Plot_File(filename)
 
     def generate(self, basis_set: GTO_Basis_Set.GTO_Basis_Set, coefficients: List[float]):
-        pass
+        for point in self.global_grid.points():
+            logging.debug(f"{point.x} {point.y} {point.z} {point.phi} {point.r} {point.theta}")

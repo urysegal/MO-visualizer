@@ -1,4 +1,5 @@
 import numpy
+from grid_coordinates import Grid_Coordinates
 
 
 class Global_Grid:
@@ -7,8 +8,12 @@ class Global_Grid:
         assert isinstance(grid_dimension, int)
         self.radius = radius
         self.grid_dimension = grid_dimension
-        self.theta_coordinates = numpy.linspace(0, numpy.pi, self.grid_dimension)
-        self.phi_coordinates = numpy.linspace(0, 2 * numpy.pi, self.grid_dimension)
-        self.cartesian_coordinates = numpy.array([numpy.sin(self.theta_coordinates) * numpy.sin(self.phi_coordinates),
-                                                  numpy.sin(self.theta_coordinates) * numpy.cos(self.phi_coordinates),
-                                                  numpy.cos(self.theta_coordinates)])
+        self.cartesian_coordinates = numpy.array([numpy.linspace(-radius, radius, self.grid_dimension),
+                                                  numpy.linspace(-radius, radius, self.grid_dimension),
+                                                  numpy.linspace(-radius, radius, self.grid_dimension)])
+
+    def points(self):
+        for x in self.cartesian_coordinates[0]:
+            for y in self.cartesian_coordinates[1]:
+                for z in self.cartesian_coordinates[2]:
+                    yield Grid_Coordinates().set_cartesian(x, y, z)
