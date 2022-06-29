@@ -1,5 +1,5 @@
 from typing import List
-
+import copy
 from scipy.special import sph_harm
 import math
 from grid_coordinates import Grid_Coordinates
@@ -21,14 +21,15 @@ class GTO_Basis_Function:
         self.contractions = []
         self.angular_moment_quantum_number = angular_moment_quantum_number
         self.magnetic_quantum_number = magnetic_quantum_number
-        self.location = location
+        self.location = copy.deepcopy(location)
 
     def add_contraction(self, gto_primitive: GTO_Primitive):
         self.contractions.append(gto_primitive)
 
     def calculate(self, global_grid_location: Grid_Coordinates):
         assert self.contractions
-        #angular_part = sph_harm(abs(self.magnetic_quantum_number), self.angular_moment_quantum_number, phi, theta)
-        #radial_part = functools.reduce(lambda result, primitive: result + primitive.calculate(r), self.contractions)
-        #return radial_part * angular_part
+        adjusted_grid_location = Grid_Coordinates.adjust(self.location, global_grid_location)
+        angular_part = sph_harm(abs(self.magnetic_quantum_number), self.angular_moment_quantum_number, adjusted_grid_location.phi, adjusted_grid_location.theta)
+        radial_part = functools.reduce(lambda result, primitive: result + primitive.calculate(adjusted_grid_location.r), self.contractions)
+        return radial_part * angular_part
         pass
