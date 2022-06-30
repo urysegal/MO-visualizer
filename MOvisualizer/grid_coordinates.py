@@ -23,3 +23,13 @@ class Grid_Coordinates:
         self.theta = math.atan2(self.z, math.sqrt(hypotenuse_squared))
         self.phi = math.atan2(self.y, self.x)
         self.r = math.sqrt(hypotenuse_squared + self.z ** 2)
+
+    def recenter(self, local_coordinates):
+        result = Grid_Coordinates()
+        result.set_cartesian(
+            self.x - local_coordinates.x,
+            self.y - local_coordinates.y,
+            self.z - local_coordinates.z
+        )
+        return result
+

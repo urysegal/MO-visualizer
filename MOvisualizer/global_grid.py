@@ -1,5 +1,5 @@
 import numpy
-from grid_coordinates import Grid_Coordinates
+from MOvisualizer.grid_coordinates import Grid_Coordinates
 
 
 class Global_Grid:

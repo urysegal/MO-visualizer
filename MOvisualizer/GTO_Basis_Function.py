@@ -2,7 +2,8 @@ from typing import List
 import copy
 from scipy.special import sph_harm
 import math
-from grid_coordinates import Grid_Coordinates
+import functools
+from MOvisualizer.grid_coordinates import Grid_Coordinates
 
 class GTO_Primitive:
     def __init__(self, coefficient: float, exponent: float):
@@ -28,8 +29,9 @@ class GTO_Basis_Function:
 
     def calculate(self, global_grid_location: Grid_Coordinates):
         assert self.contractions
-        adjusted_grid_location = Grid_Coordinates.adjust(self.location, global_grid_location)
+        adjusted_grid_location = self.location.recenter(global_grid_location)
         angular_part = sph_harm(abs(self.magnetic_quantum_number), self.angular_moment_quantum_number, adjusted_grid_location.phi, adjusted_grid_location.theta)
-        radial_part = functools.reduce(lambda result, primitive: result + primitive.calculate(adjusted_grid_location.r), self.contractions)
+        radial_part = float(0)
+        for contraction in self.contractions:
+            radial_part += contraction.calculate(adjusted_grid_location.r)
         return radial_part * angular_part
-        pass

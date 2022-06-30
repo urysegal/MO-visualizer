@@ -11,5 +11,9 @@ class Plot_File_Generator:
         self.plot_file = MOvisualizer.plot_file.Plot_File(filename)
 
     def generate(self, basis_set: GTO_Basis_Set.GTO_Basis_Set, coefficients: List[float]):
+        self.plot_file.open()
         for point in self.global_grid.points():
             logging.debug(f"{point.x} {point.y} {point.z} {point.phi} {point.r} {point.theta}")
+            val = basis_set.calculate(coefficients, point)
+            self.plot_file.add_plot_point(point.x, point.y, point.z, val.real)
+        self.plot_file.close()
