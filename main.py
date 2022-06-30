@@ -37,7 +37,7 @@ def main():
     args = parser.parse_args()
     plot = MOvisualizer.plot_file_generator.Plot_File_Generator(args.radius, args.grid, args.output_file)
     basis_set = MOvisualizer.Basis_Set_Loader.Basis_Set_Loader().load(geometry)
-    plot.generate(basis_set, [0,1,0,0,0] )
+    plot.generate(basis_set, [-0.5,0.5,0,0,0] )
 
 
 if __name__ == '__main__':
