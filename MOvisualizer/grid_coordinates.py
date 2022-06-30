@@ -32,4 +32,3 @@ class Grid_Coordinates:
             self.z - local_coordinates.z
         )
         return result
-
