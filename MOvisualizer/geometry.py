@@ -19,7 +19,7 @@ class Geometry:
         self.all_centers = []
 
     def add_center(self, center: Center):
-        self.centers.append(center)
+        self.all_centers.append(center)
         return self
 
     def centers(self):

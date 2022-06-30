@@ -1,3 +1,4 @@
+import logging
 from typing import List
 
 from MOvisualizer import GTO_Basis_Function
@@ -12,6 +13,7 @@ class GTO_Basis_Set:
         self.functions.append(f)
 
     def calculate(self, coefficients: List[float], coordinates: Grid_Coordinates):
+        logging.info(f"{len(self.functions)} basis functions")
         assert len(coefficients) == len(self.functions)
         result = float(0)
         for function_index in range(0, len(coefficients)):
