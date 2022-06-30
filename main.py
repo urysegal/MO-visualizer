@@ -15,7 +15,11 @@ methane_info = [
     [1, 0.6314, -0.6314, -0.6314]
 ]
 
-for c in methane_info:
+C_info = [
+    [6, 0.0000, 0.0000, 0.0000],
+]
+
+for c in C_info:
     geometry.add_center(
         Center().set_atomic_number(c[0]).set_coordinates(Grid_Coordinates().set_cartesian(c[1], c[2], c[3])))
 
@@ -33,7 +37,7 @@ def main():
     args = parser.parse_args()
     plot = MOvisualizer.plot_file_generator.Plot_File_Generator(args.radius, args.grid, args.output_file)
     basis_set = MOvisualizer.Basis_Set_Loader.Basis_Set_Loader().load(geometry)
-    plot.generate(basis_set, [1])
+    plot.generate(basis_set, [0,1,0,0,0] )
 
 
 if __name__ == '__main__':

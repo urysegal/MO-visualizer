@@ -15,5 +15,5 @@ class Plot_File_Generator:
         for point in self.global_grid.points():
             logging.debug(f"{point.x} {point.y} {point.z} {point.phi} {point.r} {point.theta}")
             val = basis_set.calculate(coefficients, point)
-            self.plot_file.add_plot_point(point.x, point.y, point.z, val.real)
+            self.plot_file.add_plot_point(point.x, point.y, point.z, val)
         self.plot_file.close()
